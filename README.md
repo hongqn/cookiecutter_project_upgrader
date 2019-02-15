@@ -1,6 +1,9 @@
 # Cupper
 
-Cupper allows for the update of services that are created using cookiecutter. When run, it creates a new branch that contains the latest cookiecuttered code, using a JSON file with context that matches the existing service. This file can be created through cookiecutter with the following contents:
+Cupper allows for the update of services that are created using cookiecutter.
+When run, it creates a new branch that contains the latest cookiecuttered code,
+using a JSON file with context that matches the existing service.
+This file can be created through cookiecutter with the following contents:
 
 `{{ cookiecutter | jsonify }}`
 
