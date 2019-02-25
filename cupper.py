@@ -43,14 +43,17 @@ def update_template(context, project_directory, branch):
     context['project_slug'] = project_slug
     # create a template branch if necessary
     if subprocess.run(["git", "rev-parse", "-q", "--verify", branch], cwd=project_directory).returncode != 0:
+        print(f"Creating git branch {branch}")
         firstref = subprocess.run(["git", "rev-list", "--max-parents=0", "--max-count=1", "HEAD"],
                                   cwd=project_directory,
                                   stdout=subprocess.PIPE,
-                                  universal_newlines=True).stdout.strip()
+                                  universal_newlines=True,
+                                  check=True).stdout.strip()
         subprocess.run(["git", "branch", branch, firstref])
 
     with TemporaryWorkdir(tmp_workdir, repo=project_directory, branch=branch):
         # update the template
+        print(f"Updating template in branch {branch} using extra_context={context}")
         cookiecutter(template_url,
                      no_input=True,
                      extra_context=context,
@@ -61,6 +64,12 @@ def update_template(context, project_directory, branch):
         subprocess.run(["git", "add", "-A", "."], cwd=tmp_workdir, check=True)
         subprocess.run(["git", "commit", "-m", "Update template"],
                        cwd=tmp_workdir, check=True)
+        subprocess.run(["git", "push", "origin", branch],
+                       cwd=tmp_workdir, check=False)
+
+        print(f"===========")
+        print(f"Changes have been commited into branch '{branch}'. Use the following command to update your branch:\n"
+              f"git merge {branch}")
 
 
 def main():
