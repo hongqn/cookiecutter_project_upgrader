@@ -1,27 +1,59 @@
-from setuptools import setup
+from pathlib import Path
+from setuptools import find_packages, setup
 
-# Read README.md
-from os import path
+readme = Path('README.rst').read_text(encoding="utf-8")
+history = Path('docs/history.rst').read_text(encoding="utf-8")
 
-this_directory = path.abspath(path.dirname(__file__))
-with open(path.join(this_directory, 'README.md')) as f:
-    long_description = f.read()
+runtime_requirements = [
+    'cookiecutter',
+    'click>=7.0',
+]
+development_requirements = [
+    'pip>=19.0.2',
+    'bumpversion>=0.5.3',
+    'wheel>=0.32.3',
+    'watchdog>=0.9.0',
+    'flake8>=3.6.0',
+    'tox>=3.6.1',
+    'coverage>=4.5.2',
+    'Sphinx>=1.8.3',
+    'twine>=1.12.1',
+    'pluggy>=0.7.0',
+    'mypy>=0.650',
+    'pytest>=3.8.2',
+    'pytest-runner>=4.2',
+]
 
 setup(
-    name="cupper",
-    version="0.0.4",
-    description="Cookie-cutter updater",
-    long_description=long_description,
-    long_description_content_type="text/markdown",
-    author="Mike Jewell",
-    author_email="mike.jewell@senseye.io",
-    license="MIT",
-    url="http://github.com/senseyeio/cupper",
-    install_requires=[
-        'cookiecutter'
+    author="Thomas Jahoda",
+    author_email="thomasjahoda@users.noreply.github.com",
+    classifiers=[
+        'Development Status :: 2 - Pre-Alpha',
+        'Intended Audience :: Developers',
+        'License :: OSI Approved :: MIT License',
+        'Natural Language :: English',
+        'Programming Language :: Python :: 3',
+        'Programming Language :: Python :: 3.6',
+        'Programming Language :: Python :: 3.7',
     ],
-    py_modules=['cupper'],
+    description="Cookiecutter Upper - upgrade projects created from a template",
     entry_points={
-        'console_scripts': ['cupper = cupper:main']
-    }
+        'console_scripts': [
+            'cupper=cupper.cli:main',
+        ],
+    },
+    install_requires=runtime_requirements,
+    extras_require={
+        'dev': development_requirements
+    },
+    license="MIT license",
+    long_description=readme + '\n\n' + history,
+    include_package_data=True,
+    keywords='cupper',
+    name='cupper',
+    packages=find_packages(include=['cupper', 'cupper.*']),
+    test_suite='tests',
+    url='https://github.com/thomasjahoda/cupper',
+    version='0.1.0',
+    zip_safe=False,
 )
