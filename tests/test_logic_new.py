@@ -93,3 +93,33 @@ def test_first_run_creates_branch_on_first_commit_and_updates_based_on_template(
     subprocess.run(["git", "merge", "cookiecutter-template"], cwd=str(project_directory), check=True)
     readme = project_directory.joinpath("README.rst").read_text(encoding="utf-8")
     assert readme == "updated readme"
+
+
+def test_change_project_slug(cookiecutter_template_directory: Path,
+                             cookies: Cookies):
+    result: Result = cookies.bake(extra_context=SAMPLE_CONTEXT, template=str(cookiecutter_template_directory))
+    if result.exception is not None:
+        raise result.exception
+    project_directory = Path(result.project)
+    subprocess.run(["git", "init"], cwd=str(project_directory), check=True)
+    subprocess.run(["git", "add", "-A"], cwd=str(project_directory), check=True)
+    subprocess.run(["git", "commit", "-m", "initial"], cwd=str(project_directory), check=True)
+
+    context = json.loads(project_directory.joinpath("docs", "cookiecutter_input.json").read_text(encoding="utf-8"))
+
+    cookiecutter_template_directory.joinpath("{{cookiecutter.project_slug}}", "README.rst").write_text("updated readme")
+    subprocess.run(["git", "add", "-A"], cwd=str(cookiecutter_template_directory), check=True)
+    subprocess.run(["git", "commit", "-m", "updated readme"], cwd=str(cookiecutter_template_directory), check=True)
+
+    context['_template'] = str(cookiecutter_template_directory)
+    context['project_name'] = "My New Name For Project"
+    old_project_slug = context['project_slug']
+    new_project_slug = "my_new_name_for_project"
+    context['project_slug'] = new_project_slug
+    update_project_template_branch(context, str(project_directory), "cookiecutter-template")
+
+    subprocess.run(["git", "merge", "cookiecutter-template"], cwd=str(project_directory), check=True)
+    readme = project_directory.joinpath("README.rst").read_text(encoding="utf-8")
+    assert readme == "updated readme"
+    assert project_directory.joinpath(new_project_slug).is_dir()
+    assert not project_directory.joinpath(old_project_slug).exists()

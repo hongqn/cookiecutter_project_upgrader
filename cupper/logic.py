@@ -7,7 +7,7 @@ from pathlib import Path
 from typing import MutableMapping
 
 
-class _TemporaryGitWorkingDirectory:
+class _TemporaryGitWorktreeDirectory:
     """Context Manager for a temporary working directory of a branch in a git repo"""
 
     def __init__(self, path: str, repo: str, branch: str = 'master'):
@@ -45,11 +45,10 @@ def _git_repository_has_local_changes(git_repository: Path):
 def update_project_template_branch(context: MutableMapping[str, str], project_directory: str, branch: str):
     """Update template branch from a template url"""
     template_url = context['_template']
-    tmpdir = os.path.join(project_directory, ".git", "cookiecutter")
-    project_slug = os.path.basename(project_directory)
-    tmp_workdir = os.path.join(tmpdir, project_slug)
+    tmp_directory = os.path.join(project_directory, ".git", "cookiecutter")
+    project_directory_name = os.path.basename(project_directory)
+    tmp_cookiecutter_project_output_dir = os.path.join(tmp_directory, project_directory_name)
 
-    context['project_slug'] = project_slug
     if subprocess.run(["git", "rev-parse", "-q", "--verify", branch], cwd=project_directory).returncode != 0:
         # create a template branch if necessary
         click.echo(f"Creating git branch {branch}")
@@ -60,23 +59,32 @@ def update_project_template_branch(context: MutableMapping[str, str], project_di
                                   check=True).stdout.strip()
         subprocess.run(["git", "branch", branch, firstref], cwd=project_directory)
 
-    with _TemporaryGitWorkingDirectory(tmp_workdir, repo=project_directory, branch=branch):
+    with _TemporaryGitWorktreeDirectory(tmp_cookiecutter_project_output_dir, repo=project_directory, branch=branch):
         # update the template
         click.echo(f"Updating template in branch {branch} using extra_context={context}")
         cookiecutter(template_url,
                      no_input=True,
                      extra_context=context,
                      overwrite_if_exists=True,
-                     output_dir=tmpdir)
+                     output_dir=tmp_directory)
+
+        if context['project_slug'] != project_directory_name:
+            # move generated files to git worktree
+            generated_directory = Path(tmp_directory).joinpath(context['project_slug'])
+            assert generated_directory.is_dir()
+            target_directory = Path(tmp_directory).joinpath(project_directory_name)
+            shutil.move(target_directory.joinpath(".git"), generated_directory.joinpath(".git"))
+            target_directory.rmdir()
+            shutil.move(generated_directory, target_directory)
 
         # commit to template branch
-        subprocess.run(["git", "add", "-A", "."], cwd=tmp_workdir, check=True)
-        if _git_repository_has_local_changes(Path(tmp_workdir)):
+        subprocess.run(["git", "add", "-A", "."], cwd=tmp_cookiecutter_project_output_dir, check=True)
+        if _git_repository_has_local_changes(Path(tmp_cookiecutter_project_output_dir)):
             click.echo("Committing changes...")
             subprocess.run(["git", "commit", "-m", "Update template"],
-                           cwd=tmp_workdir, check=True)
+                           cwd=tmp_cookiecutter_project_output_dir, check=True)
             subprocess.run(["git", "push", "origin", branch],
-                           cwd=tmp_workdir, check=False)
+                           cwd=tmp_cookiecutter_project_output_dir, check=False)
 
             click.echo(f"===========")
             click.echo(
