@@ -10,11 +10,12 @@ from cupper.logic import update_project_template_branch
 @click.option('--context-file', '-c', type=click.Path(file_okay=True, readable=True, allow_dash=True),
               default="docs/cookiecutter_input.json")
 @click.option('--branch', '-b', default="cookiecutter-template")
-def main(context_file: str, branch: str):
+@click.option('--merge-now', '-m', is_flag=True, default=False)
+def main(context_file: str, branch: str, merge_now: bool):
     """Cupper - Cookie-cutter Upper - Upgrades projects created from a template"""
     context = _load_context(context_file)
     project_directory = os.getcwd()
-    update_project_template_branch(context, project_directory, branch)
+    update_project_template_branch(context, project_directory, branch, merge_now)
 
 
 def _load_context(context_file: str):

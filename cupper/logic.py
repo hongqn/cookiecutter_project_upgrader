@@ -42,7 +42,8 @@ def _git_repository_has_local_changes(git_repository: Path):
         raise Exception("could not determine whether git worktree is clean: " + repr(result))
 
 
-def update_project_template_branch(context: MutableMapping[str, str], project_directory: str, branch: str):
+def update_project_template_branch(context: MutableMapping[str, str], project_directory: str, branch: str,
+                                   merge_now: bool):
     """Update template branch from a template url"""
     template_url = context['_template']
     tmp_directory = os.path.join(project_directory, ".git", "cookiecutter")
@@ -72,16 +73,30 @@ def update_project_template_branch(context: MutableMapping[str, str], project_di
 
         # commit to template branch
         subprocess.run(["git", "add", "-A", "."], cwd=tmp_git_worktree_directory, check=True)
-        if _git_repository_has_local_changes(Path(tmp_git_worktree_directory)):
+        has_changes = _git_repository_has_local_changes(Path(tmp_git_worktree_directory))
+        if has_changes:
             click.echo("Committing changes...")
             subprocess.run(["git", "commit", "-m", "Update template"],
                            cwd=tmp_git_worktree_directory, check=True)
             subprocess.run(["git", "push", "origin", branch],
                            cwd=tmp_git_worktree_directory, check=False)
-
             click.echo(f"===========")
-            click.echo(
-                f"Changes have been commited into branch '{branch}'. Use the following command to update your branch:\n"
-                f"git merge {branch}")
+
+    if has_changes:
+        if merge_now:
+            result = subprocess.run(["git", "merge", branch],
+                                    cwd=project_directory, check=False)
+            click.echo(f"===========")
+            if result.returncode == 0:
+                click.echo("Merged changes successfully.")
+            else:
+                click.echo("Started merging changes into current branch, "
+                           "however there seem to be conflicts or the working tree was not clean.")
         else:
-            click.echo("No changes found")
+            click.echo(
+                f"Changes have been commited into branch '{branch}'. "
+                f"Use the following command to update your branch:\n"
+                f"git merge {branch}")
+
+    else:
+        click.echo("No changes found")
