@@ -9,7 +9,7 @@ if "%SPHINXBUILD%" == "" (
 )
 set SOURCEDIR=.
 set BUILDDIR=_build
-set SPHINXPROJ=cupper
+set SPHINXPROJ=cookiecutter_project_upgrader
 
 if "%1" == "" goto help
 

@@ -11,7 +11,7 @@ function execute_and_translate_to_absolute_filenames() {
     output="$(${command} 2>&1)"
     exit_code=$?
     if [ ${exit_code} != 0 ]; then
-        output="$(echo "$output" | sed -e "s|^cupper/|$(pwd)/cupper/|g")"
+        output="$(echo "$output" | sed -e "s|^cookiecutter_project_upgrader/|$(pwd)/cookiecutter_project_upgrader/|g")"
         output="$(echo "$output" | sed -e "s|^tests/|$(pwd)/tests/|g")"
         echo "failed with exit code ${exit_code}"
         echo "$output"

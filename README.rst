@@ -1,26 +1,26 @@
-======
-Cupper
-======
+=============================
+Cookiecutter Project Upgrader
+=============================
 
 
-.. image:: https://img.shields.io/pypi/v/cupper.svg
-        :target: https://pypi.python.org/pypi/cupper
+.. image:: https://img.shields.io/pypi/v/cookiecutter_project_upgrader.svg
+        :target: https://pypi.python.org/pypi/cookiecutter_project_upgrader
 
-.. image:: https://img.shields.io/travis/thomasjahoda/cupper.svg
-        :target: https://travis-ci.org/thomasjahoda/cupper
+.. image:: https://img.shields.io/travis/thomasjahoda/cookiecutter_project_upgrader.svg
+        :target: https://travis-ci.org/thomasjahoda/cookiecutter_project_upgrader
 
-.. image:: https://readthedocs.org/projects/cupper/badge/?version=latest
-        :target: https://cupper.readthedocs.io/en/latest/?badge=latest
+.. image:: https://readthedocs.org/projects/cookiecutter-project-upgrader/badge/?version=latest
+        :target: https://cookiecutter-project-upgrader.readthedocs.io/en/latest/?badge=latest
         :alt: Documentation Status
 
 
 
 
-Cookiecutter Upper - upgrade projects created from a template
+upgrade projects created from a Cookiecutter template
 
 
 * Free software: MIT license
-* Documentation: https://cupper.readthedocs.io.
+* Documentation: https://cookiecutter-project-upgrader.readthedocs.io.
 
 Features
 --------

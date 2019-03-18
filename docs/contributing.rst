@@ -15,7 +15,7 @@ Types of Contributions
 Report Bugs
 ~~~~~~~~~~~
 
-Report bugs at https://github.com/thomasjahoda/cupper/issues.
+Report bugs at https://github.com/thomasjahoda/cookiecutter_project_upgrader/issues.
 
 If you are reporting a bug, please include:
 
@@ -38,14 +38,14 @@ and "help wanted" is open to whoever wants to implement it.
 Write Documentation
 ~~~~~~~~~~~~~~~~~~~
 
-Cupper could always use more documentation, whether as part of the
-official Cupper docs, in docstrings, or even on the web in blog posts,
+Cookiecutter Project Upgrader could always use more documentation, whether as part of the
+official Cookiecutter Project Upgrader docs, in docstrings, or even on the web in blog posts,
 articles, and such.
 
 Submit Feedback
 ~~~~~~~~~~~~~~~
 
-The best way to send feedback is to file an issue at https://github.com/thomasjahoda/cupper/issues.
+The best way to send feedback is to file an issue at https://github.com/thomasjahoda/cookiecutter_project_upgrader/issues.
 
 If you are proposing a feature:
 
@@ -57,17 +57,17 @@ If you are proposing a feature:
 Get Started!
 ------------
 
-Ready to contribute? Here's how to set up `cupper` for local development.
+Ready to contribute? Here's how to set up `cookiecutter_project_upgrader` for local development.
 
-1. Fork the `cupper` repo on GitHub.
+1. Fork the `cookiecutter_project_upgrader` repo on GitHub.
 2. Clone your fork locally::
 
-    $ git clone git@github.com:your_name_here/cupper.git
+    $ git clone git@github.com:your_name_here/cookiecutter_project_upgrader.git
 
 3. Install your local copy into a virtualenv. Assuming you have virtualenvwrapper installed, this is how you set up your fork for local development::
 
-    $ mkvirtualenv cupper
-    $ cd cupper/
+    $ mkvirtualenv cookiecutter_project_upgrader
+    $ cd cookiecutter_project_upgrader/
     $ python setup.py develop
 
 4. Create a branch for local development::
@@ -79,7 +79,7 @@ Ready to contribute? Here's how to set up `cupper` for local development.
 5. When you're done making changes, check that your changes pass flake8 and the
    tests, including testing other Python versions with tox::
 
-    $ flake8 cupper tests
+    $ flake8 cookiecutter_project_upgrader tests
     $ python setup.py test or py.test
     $ tox
 
@@ -103,7 +103,7 @@ Before you submit a pull request, check that it meets these guidelines:
    your new functionality into a function with a docstring, and add the
    feature to the list in README.rst.
 3. The pull request should work for Python 3.6 and 3.7, and for PyPy. Check
-   https://travis-ci.org/thomasjahoda/cupper/pull_requests
+   https://travis-ci.org/thomasjahoda/cookiecutter_project_upgrader/pull_requests
    and make sure that the tests pass for all supported Python versions.
 
 Tips
@@ -111,7 +111,7 @@ Tips
 
 To run a subset of tests::
 
-$ py.test tests.test_cupper
+$ py.test tests.test_cookiecutter_project_upgrader
 
 
 Deploying

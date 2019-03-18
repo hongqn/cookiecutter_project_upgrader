@@ -1,4 +1,4 @@
-* Cupper version:
+* Cookiecutter Project Upgrader version:
 * Python version:
 * Operating System:
 

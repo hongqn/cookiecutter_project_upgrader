@@ -1,4 +1,4 @@
-Welcome to Cupper's documentation!
+Welcome to Cookiecutter Project Upgrader's documentation!
 ======================================
 
 .. toctree::

@@ -5,5 +5,5 @@ if [[ $0 == $BASH_SOURCE ]]; then
     exit 1
 fi
 
-eval "$(_CUPPER_COMPLETE=source cupper)"
+eval "$(_COOKIECUTTER_PROJECT_UPGRADER_COMPLETE=source cookiecutter_project_upgrader)"
 

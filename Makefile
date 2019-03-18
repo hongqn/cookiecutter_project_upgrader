@@ -54,10 +54,10 @@ clean-mypy: ## remove mypy cache
 	rm -fr .mypy_cache/
 
 lint: ## check style with flake8
-	flake8 cupper tests --max-line-length=120
+	flake8 cookiecutter_project_upgrader tests --max-line-length=120
 
 type-check: ## run tests quickly with the default Python
-	mypy cupper tests
+	mypy cookiecutter_project_upgrader tests
 
 test: ## run tests quickly with the default Python
 	py.test
@@ -66,15 +66,15 @@ test-all: ## run tests on every Python version with tox
 	tox
 
 coverage: ## check code coverage quickly with the default Python
-	coverage run --source cupper -m pytest
+	coverage run --source cookiecutter_project_upgrader -m pytest
 	coverage report -m
 	coverage html
 	$(BROWSER) htmlcov/index.html
 
 docs: ## generate Sphinx HTML documentation, including API docs
-	rm -f docs/cupper.rst
+	rm -f docs/cookiecutter_project_upgrader.rst
 	rm -f docs/modules.rst
-	sphinx-apidoc -o docs/ cupper
+	sphinx-apidoc -o docs/ cookiecutter_project_upgrader
 	$(MAKE) -C docs clean
 	$(MAKE) -C docs html
 	$(BROWSER) docs/_build/html/index.html
