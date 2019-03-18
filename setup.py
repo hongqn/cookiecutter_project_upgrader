@@ -21,6 +21,7 @@ development_requirements = [
     'mypy>=0.650',
     'pytest>=3.8.2',
     'pytest-runner>=4.2',
+    'pytest-mock>=1.10.1',
 ]
 
 setup(
@@ -35,10 +36,10 @@ setup(
         'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: 3.7',
     ],
-    description="Cookiecutter Upper - upgrade projects created from a template",
+    description="upgrade projects created from a Cookiecutter template",
     entry_points={
         'console_scripts': [
-            'cupper=cupper.cli:main',
+            'cookiecutter_project_upgrader=cookiecutter_project_upgrader.cli:main',
         ],
     },
     install_requires=runtime_requirements,
@@ -48,11 +49,11 @@ setup(
     license="MIT license",
     long_description=readme + '\n\n' + history,
     include_package_data=True,
-    keywords='cupper',
-    name='cupper',
-    packages=find_packages(include=['cupper', 'cupper.*']),
+    keywords='cookiecutter_project_upgrader',
+    name='cookiecutter_project_upgrader',
+    packages=find_packages(include=['cookiecutter_project_upgrader', 'cookiecutter_project_upgrader.*']),
     test_suite='tests',
-    url='https://github.com/thomasjahoda/cupper',
+    url='https://github.com/thomasjahoda/cookiecutter_project_upgrader',
     version='0.1.0',
     zip_safe=False,
 )

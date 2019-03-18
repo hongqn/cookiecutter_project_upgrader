@@ -2,8 +2,8 @@ import pytest
 
 from click.testing import CliRunner
 
-from cupper import example
-from cupper import cli
+from cookiecutter_project_upgrader import example
+from cookiecutter_project_upgrader import cli
 
 
 @pytest.fixture

@@ -2,6 +2,6 @@
 Usage
 =====
 
-To use Cupper in a project::
+To use Cookiecutter Project Upgrader in a project::
 
-    import cupper
+    import cookiecutter_project_upgrader

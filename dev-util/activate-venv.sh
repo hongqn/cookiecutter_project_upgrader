@@ -13,6 +13,6 @@ fi
 
 source "${VIRTUALENVWRAPPER_SCRIPT}"
 
-workon cupper
+workon cookiecutter_project_upgrader
 
 echo "Activated venv."

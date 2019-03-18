@@ -23,5 +23,5 @@ deploy:
     secure: PLEASE_REPLACE_ME
   on:
     tags: true
-    repo: thomasjahoda/cupper
+    repo: thomasjahoda/cookiecutter_project_upgrader
     python: 3.7
