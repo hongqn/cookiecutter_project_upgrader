@@ -6,7 +6,7 @@ from contextlib import contextmanager
 from pathlib import Path
 from pytest_cookies import Cookies, Result
 
-from cupper.logic import update_project_template_branch
+from cookiecutter_project_upgrader.logic import update_project_template_branch
 from tests.files import copy_children
 from tests.tmp_files import CreateTempDirectory
 
@@ -56,8 +56,8 @@ def inside_dir(dirpath):
         os.chdir(old_path)
 
 
-def test_initial_cupper_without_change_on_template_just_initializes_branch(cookiecutter_template_directory: Path,
-                                                                           cookies: Cookies):
+def test_initial_run_without_change_on_template_just_initializes_branch(cookiecutter_template_directory: Path,
+                                                                        cookies: Cookies):
     result: Result = cookies.bake(extra_context=SAMPLE_CONTEXT, template=str(cookiecutter_template_directory))
     if result.exception is not None:
         raise result.exception
