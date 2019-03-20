@@ -84,6 +84,12 @@ def test_first_run_creates_branch_on_first_commit_and_updates_based_on_template(
     context = json.loads(project_directory.joinpath("docs", "cookiecutter_input.json").read_text(encoding="utf-8"))
 
     cookiecutter_template_directory.joinpath("{{cookiecutter.project_slug}}", "README.rst").write_text("updated readme")
+    cookiecutter_template_directory.joinpath("{{cookiecutter.project_slug}}", ".file_with_dot.txt") \
+        .write_text("updated content")
+    new_template_file_with_dot_at_start = cookiecutter_template_directory.joinpath("{{cookiecutter.project_slug}}",
+                                                                                   ".travis.yml")
+    new_template_file_with_dot_at_start.touch()
+    new_template_file_with_dot_at_start.write_text("new file text")
     subprocess.run(["git", "add", "-A"], cwd=str(cookiecutter_template_directory), check=True)
     subprocess.run(["git", "commit", "-m", "updated readme"], cwd=str(cookiecutter_template_directory), check=True)
 
@@ -93,6 +99,12 @@ def test_first_run_creates_branch_on_first_commit_and_updates_based_on_template(
     subprocess.run(["git", "merge", "cookiecutter-template"], cwd=str(project_directory), check=True)
     readme = project_directory.joinpath("README.rst").read_text(encoding="utf-8")
     assert readme == "updated readme"
+
+    assert project_directory.joinpath(".file_with_dot.txt").read_text(encoding="utf-8") == "updated content"
+
+    project_new_file = project_directory.joinpath(".travis.yml")
+    assert project_new_file.exists()
+    assert project_new_file.read_text(encoding="utf-8") == "new file text"
 
 
 def test_change_project_slug(cookiecutter_template_directory: Path,
