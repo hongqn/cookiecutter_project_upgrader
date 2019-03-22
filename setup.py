@@ -57,6 +57,6 @@ setup(
     packages=find_packages(include=['cookiecutter_project_upgrader', 'cookiecutter_project_upgrader.*']),
     test_suite='tests',
     url='https://github.com/thomasjahoda/cookiecutter_project_upgrader',
-    version='0.1.0',
+    version='1.0.0',
     zip_safe=False,
 )
