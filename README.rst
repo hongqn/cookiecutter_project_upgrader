@@ -16,7 +16,7 @@ Cookiecutter Project Upgrader
 
 
 
-upgrade projects created from a Cookiecutter template
+Upgrade projects created from a Cookiecutter template.
 
 
 * Free software: MIT license
@@ -25,38 +25,46 @@ upgrade projects created from a Cookiecutter template
 Features
 --------
 
-Cookiecutter Project Upgrader allows for the update of projects that are created using cookiecutter.
-When run the first time on a project, it creates a new branch that contains the latest cookiecuttered code,
-using a JSON file with context that matches the existing service.
-This file can be created through cookiecutter with the following contents:
+Cookiecutter Project Upgrader allows upgrading projects that were created using Cookiecutter.
 
-`{{ cookiecutter | jsonify }}`
+After a project has been created from a Cookiecutter template, changes made to the Cookiecutter template usually have to be applied manually to the project.
+This tool automates this process.
 
-The script uses the [Click](https://github.com/pallets/click) framework.
+When run the first time on a project, it creates a new branch from the first commit of the current branch (the oldest one). It then generates the project again using the latest version of the template and creates a new commit that contains the latest cookiecuttered code,
 
-```
+
 Usage: cookiecutter_project_upgrader [OPTIONS]
-
-  Upgrade projects created from a Cookiecutter template
 
 Options:
   -c, --context-file PATH  Default: docs/cookiecutter_input.json
   -b, --branch TEXT        Default: cookiecutter-template
   -m, --merge-now          Execute a git merge after a successful update
   --help                   Show this message and exit.
-```
 
-Note that you will need a recent version of git for this to work. (it needs --no-checkout on git worktree)
+
+Preconditions
+-------------
+
+The tool requires a JSON file with context that matches the existing service.
+This file can be created through Cookiecutter with the following contents:
+::
+
+    {{ cookiecutter | jsonify }}
+
+
+You will need a recent version of git for this to work. (it needs --no-checkout on git worktree)
 
 
 Auto-Completion
 ---------------
+The script uses the `Click toolkit <https://github.com/pallets/click>`_.
 Because the script uses Click, you can enable completion for Zsh and Bash.
 
 For Bash, add the following to your `.bashrc` or some other profile initialization file.
 `eval "$(_COOKIECUTTER_PROJECT_UPGRADER_COMPLETE=source cookiecutter_project_upgrader)"`
 
-For Zsh, please read [the Click documentation](https://click.palletsprojects.com/en/7.x/bashcomplete/#activation).
+For Zsh, please read the `Click documentation <https://click.palletsprojects.com/en/7.x/bashcomplete/#activation>`_.
+
 
 Credits
 -------
