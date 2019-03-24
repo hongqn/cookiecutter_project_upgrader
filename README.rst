@@ -35,11 +35,20 @@ When run the first time on a project, it creates a new branch from the first com
 
 Usage: cookiecutter_project_upgrader [OPTIONS]
 
+  Upgrade projects created from a Cookiecutter template
+
 Options:
-  -c, --context-file PATH  Default: docs/cookiecutter_input.json
-  -b, --branch TEXT        Default: cookiecutter-template
-  -m, --merge-now          Execute a git merge after a successful update
-  --help                   Show this message and exit.
+  -c, --context-file PATH         Default: docs/cookiecutter_input.json
+  -b, --branch TEXT               Default: cookiecutter-template
+  -m, --merge-now BOOLEAN         Execute a git merge after a successful
+                                  update, default: ask if interactive,
+                                  otherwise false.
+  -m, --push-template-branch-changes BOOLEAN
+                                  Push changes to the remote Git branch on a
+                                  successful update, default: ask if
+                                  interactive, otherwise false.
+  --help                          Show this message and exit.
+
 
 
 Preconditions
