@@ -1,10 +1,12 @@
+import sys
+
 import click
 import os
 import shutil
 import subprocess
 from cookiecutter.main import cookiecutter
 from pathlib import Path
-from typing import MutableMapping
+from typing import MutableMapping, Optional
 
 
 class _TemporaryGitWorktreeDirectory:
@@ -43,7 +45,7 @@ def _git_repository_has_local_changes(git_repository: Path):
 
 
 def update_project_template_branch(context: MutableMapping[str, str], project_directory: str, branch: str,
-                                   merge_now: bool):
+                                   merge_now: Optional[bool], push_template_branch_changes: Optional[bool]):
     """Update template branch from a template url"""
     template_url = context['_template']
     tmp_directory = os.path.join(project_directory, ".git", "cookiecutter")
@@ -78,11 +80,17 @@ def update_project_template_branch(context: MutableMapping[str, str], project_di
             click.echo("Committing changes...")
             subprocess.run(["git", "commit", "-m", "Update template"],
                            cwd=tmp_git_worktree_directory, check=True)
-            subprocess.run(["git", "push", "origin", branch],
-                           cwd=tmp_git_worktree_directory, check=False)
+            push_template_branch_changes = _determine_option(push_template_branch_changes,
+                                                             "Push changes to remote branch?")
+            if push_template_branch_changes:
+                subprocess.run(["git", "push", "origin", branch],
+                               cwd=tmp_git_worktree_directory, check=True)
+            else:
+                click.echo(f"Changes to the branch {branch} have not been pushed to a remote branch.")
             click.echo(f"===========")
 
     if has_changes:
+        merge_now = _determine_option(merge_now, "Merge changes into current branch?")
         if merge_now:
             result = subprocess.run(["git", "merge", branch],
                                     cwd=project_directory, check=False)
@@ -91,7 +99,7 @@ def update_project_template_branch(context: MutableMapping[str, str], project_di
                 click.echo("Merged changes successfully.")
             else:
                 click.echo("Started merging changes into current branch, "
-                           "however there seem to be conflicts or the working tree was not clean.")
+                           "however there seem to be conflicts.")
         else:
             click.echo(
                 f"Changes have been commited into branch '{branch}'. "
@@ -100,3 +108,12 @@ def update_project_template_branch(context: MutableMapping[str, str], project_di
 
     else:
         click.echo("No changes found")
+
+
+def _determine_option(current_value: Optional[bool], interactive_question_text: str):
+    if current_value is None:
+        if sys.stdout.isatty():
+            current_value = click.confirm(interactive_question_text, default=True)
+        else:
+            current_value = False
+    return current_value
