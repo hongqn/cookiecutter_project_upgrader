@@ -1,7 +1,4 @@
 # Config file for automatic testing at travis-ci.org
-before_install:
-  - git config --global user.email "buildjob@travis-ci.org"
-  - git config --global user.name "travis-ci.org"
 
 language: python
 python:

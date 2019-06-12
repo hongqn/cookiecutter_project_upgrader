@@ -21,8 +21,14 @@ SAMPLE_CONTEXT = {
 @pytest.fixture()
 def empty_git_repository():
     with CreateTempDirectory("some_git_repository") as git_repo:
-        subprocess.run(["git", "init"], cwd=str(git_repo), check=True)
+        _initialize_git_repo(git_repo)
         yield git_repo
+
+
+def _initialize_git_repo(directory: Path):
+    subprocess.run(["git", "init"], cwd=str(directory), check=True)
+    subprocess.run(["git", "config", "user.email", "test@test.com"], cwd=str(directory), check=True)
+    subprocess.run(["git", "config", "user.name", "test"], cwd=str(directory), check=True)
 
 
 @pytest.fixture()
@@ -62,7 +68,7 @@ def test_initial_run_without_change_on_template_just_initializes_branch(cookiecu
     if result.exception is not None:
         raise result.exception
     project_directory = Path(result.project)
-    subprocess.run(["git", "init"], cwd=str(project_directory), check=True)
+    _initialize_git_repo(project_directory)
     subprocess.run(["git", "add", "-A"], cwd=str(project_directory), check=True)
     subprocess.run(["git", "commit", "-m", "initial"], cwd=str(project_directory), check=True)
 
@@ -78,7 +84,7 @@ def test_first_run_creates_branch_on_first_commit_and_updates_based_on_template(
     if result.exception is not None:
         raise result.exception
     project_directory = Path(result.project)
-    subprocess.run(["git", "init"], cwd=str(project_directory), check=True)
+    _initialize_git_repo(project_directory)
     subprocess.run(["git", "add", "-A"], cwd=str(project_directory), check=True)
     subprocess.run(["git", "commit", "-m", "initial"], cwd=str(project_directory), check=True)
 
@@ -115,7 +121,7 @@ def test_change_project_slug(cookiecutter_template_directory: Path,
     if result.exception is not None:
         raise result.exception
     project_directory = Path(result.project)
-    subprocess.run(["git", "init"], cwd=str(project_directory), check=True)
+    _initialize_git_repo(project_directory)
     subprocess.run(["git", "add", "-A"], cwd=str(project_directory), check=True)
     subprocess.run(["git", "commit", "-m", "initial"], cwd=str(project_directory), check=True)
 

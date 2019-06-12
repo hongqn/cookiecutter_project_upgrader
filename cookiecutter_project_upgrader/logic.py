@@ -54,7 +54,8 @@ def update_project_template_branch(context: MutableMapping[str, str], project_di
 
     if subprocess.run(["git", "rev-parse", "-q", "--verify", branch], cwd=project_directory).returncode != 0:
         # create a template branch if necessary
-        if subprocess.run(["git", "rev-parse", "-q", "--verify", f"origin/{branch}"]).returncode == 0:
+        if subprocess.run(["git", "rev-parse", "-q", "--verify", f"origin/{branch}"],
+                          cwd=project_directory).returncode == 0:
             click.echo(f"Created git branch {branch} tracking origin/{branch}")
             subprocess.run(["git", "branch", branch, f"origin/{branch}"],
                            cwd=project_directory,
