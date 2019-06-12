@@ -54,17 +54,26 @@ def update_project_template_branch(context: MutableMapping[str, str], project_di
 
     if subprocess.run(["git", "rev-parse", "-q", "--verify", branch], cwd=project_directory).returncode != 0:
         # create a template branch if necessary
-        click.echo(f"Creating git branch {branch}")
-        firstref = subprocess.run(["git", "rev-list", "--max-parents=0", "--max-count=1", "HEAD"],
-                                  cwd=project_directory,
-                                  stdout=subprocess.PIPE,
-                                  universal_newlines=True,
-                                  check=True).stdout.strip()
-        subprocess.run(["git", "branch", branch, firstref], cwd=project_directory)
+        if subprocess.run(["git", "rev-parse", "-q", "--verify", f"origin/{branch}"]).returncode == 0:
+            click.echo(f"Created git branch {branch} tracking origin/{branch}")
+            subprocess.run(["git", "branch", branch, f"origin/{branch}"],
+                           cwd=project_directory,
+                           stdout=subprocess.PIPE,
+                           universal_newlines=True,
+                           check=True)
+        else:
+            click.echo(f"Creating git branch {branch} ")
+            firstref = subprocess.run(["git", "rev-list", "--max-parents=0", "--max-count=1", "HEAD"],
+                                      cwd=project_directory,
+                                      stdout=subprocess.PIPE,
+                                      universal_newlines=True,
+                                      check=True).stdout.strip()
+            subprocess.run(["git", "branch", branch, firstref], cwd=project_directory)
 
     with _TemporaryGitWorktreeDirectory(tmp_git_worktree_directory, repo=project_directory, branch=branch):
         # update the template
         click.echo(f"Updating template in branch {branch} using extra_context={context}")
+        click.echo("===========================================")
         cookiecutter(template_url,
                      no_input=True,
                      extra_context=context,
