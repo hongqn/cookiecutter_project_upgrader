@@ -80,7 +80,7 @@ Ready to contribute? Here's how to set up `cookiecutter_project_upgrader` for lo
    tests, including testing other Python versions with tox::
 
     $ flake8 cookiecutter_project_upgrader tests
-    $ python setup.py test or py.test
+    $ python setup.py test or pytest
     $ tox
 
    To get flake8 and tox, just pip install them into your virtualenv.
@@ -111,7 +111,7 @@ Tips
 
 To run a subset of tests::
 
-$ py.test tests.test_cookiecutter_project_upgrader
+$ pytest tests.test_cookiecutter_project_upgrader
 
 
 Deploying
