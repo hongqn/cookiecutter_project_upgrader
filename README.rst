@@ -7,11 +7,16 @@ Cookiecutter Project Upgrader
         :target: https://pypi.python.org/pypi/cookiecutter_project_upgrader
 
 .. image:: https://img.shields.io/travis/thomasjahoda/cookiecutter_project_upgrader.svg
-        :target: https://travis-ci.org/thomasjahoda/cookiecutter_project_upgrader
+  :target: https://travis-ci.org/thomasjahoda/cookiecutter_project_upgrader
+  :CI Status
 
 .. image:: https://readthedocs.org/projects/cookiecutter-project-upgrader/badge/?version=latest
-        :target: https://cookiecutter-project-upgrader.readthedocs.io/en/latest/?badge=latest
-        :alt: Documentation Status
+  :target: https://cookiecutter-project-upgrader.readthedocs.io/en/latest/?badge=latest
+  :alt: Documentation Status
+
+.. image:: https://codecov.io/gh/thomasjahoda/cookiecutter_project_upgrader/branch/master/graph/badge.svg
+  :target: https://codecov.io/gh/thomasjahoda/cookiecutter_project_upgrader
+  :alt: Code Coverage
 
 
 
