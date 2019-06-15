@@ -18,3 +18,7 @@ for project in projects:
         encoding="utf-8",
     )
     result.check_returncode()
+
+print()
+print("=================")
+print("Successful")
