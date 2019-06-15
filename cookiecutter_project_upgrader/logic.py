@@ -4,6 +4,8 @@ import click
 import os
 import shutil
 import subprocess
+
+from click import ClickException, UsageError
 from cookiecutter.main import cookiecutter
 from pathlib import Path
 from typing import MutableMapping, Optional
@@ -108,8 +110,8 @@ def update_project_template_branch(context: MutableMapping[str, str], project_di
             if result.returncode == 0:
                 click.echo("Merged changes successfully.")
             else:
-                click.echo("Started merging changes into current branch, "
-                           "however there seem to be conflicts.")
+                raise ClickException("Started merging changes into current branch, "
+                                     "however there seem to be conflicts.")
         else:
             click.echo(
                 f"Changes have been commited into branch '{branch}'. "
