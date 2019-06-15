@@ -8,7 +8,7 @@ Cookiecutter Project Upgrader
 
 .. image:: https://travis-ci.org/thomasjahoda/cookiecutter_project_upgrader.svg?branch=master
   :target: https://travis-ci.org/thomasjahoda/cookiecutter_project_upgrader
-  :CI Status
+  :alt: CI Status
 
 .. image:: https://readthedocs.org/projects/cookiecutter-project-upgrader/badge/?version=latest
   :target: https://cookiecutter-project-upgrader.readthedocs.io/en/latest/?badge=latest
