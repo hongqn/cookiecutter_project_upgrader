@@ -1,14 +1,13 @@
-import sys
-
-import click
 import os
 import shutil
 import subprocess
-
-from click import ClickException, UsageError
-from cookiecutter.main import cookiecutter
+import sys
 from pathlib import Path
 from typing import MutableMapping, Optional
+
+import click
+from click import ClickException
+from cookiecutter.main import cookiecutter
 
 
 class _TemporaryGitWorktreeDirectory:
