@@ -4,11 +4,11 @@ Cookiecutter Project Upgrader
 
 
 .. image:: https://img.shields.io/pypi/v/cookiecutter_project_upgrader.svg
-        :target: https://pypi.python.org/pypi/cookiecutter_project_upgrader
+  :target: https://pypi.python.org/pypi/cookiecutter_project_upgrader
 
-.. image:: https://img.shields.io/travis/thomasjahoda/cookiecutter_project_upgrader.svg
+.. image:: https://travis-ci.org/thomasjahoda/cookiecutter_project_upgrader.svg?branch=master
   :target: https://travis-ci.org/thomasjahoda/cookiecutter_project_upgrader
-  :CI Status
+  :alt: CI Status
 
 .. image:: https://readthedocs.org/projects/cookiecutter-project-upgrader/badge/?version=latest
   :target: https://cookiecutter-project-upgrader.readthedocs.io/en/latest/?badge=latest
