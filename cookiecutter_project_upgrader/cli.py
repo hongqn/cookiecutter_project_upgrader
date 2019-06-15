@@ -13,7 +13,7 @@ from cookiecutter_project_upgrader.logic import update_project_template_branch
 @click.option('--branch', '-b', default="cookiecutter-template", help="Default: cookiecutter-template")
 @click.option('--merge-now', '-m', type=bool, default=None,
               help="Execute a git merge after a successful update, default: ask if interactive, otherwise false.")
-@click.option('--push-template-branch-changes', '-m', type=bool, default=None,
+@click.option('--push-template-branch-changes', '-p', type=bool, default=None,
               help="Push changes to the remote Git branch on a successful update, "
                    "default: ask if interactive, otherwise false.")
 def main(context_file: str, branch: str,
