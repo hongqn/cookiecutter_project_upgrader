@@ -4,9 +4,9 @@ Cookiecutter Project Upgrader
 
 
 .. image:: https://img.shields.io/pypi/v/cookiecutter_project_upgrader.svg
-        :target: https://pypi.python.org/pypi/cookiecutter_project_upgrader
+  :target: https://pypi.python.org/pypi/cookiecutter_project_upgrader
 
-.. image:: https://img.shields.io/travis/thomasjahoda/cookiecutter_project_upgrader.svg
+.. image:: https://travis-ci.org/thomasjahoda/cookiecutter_project_upgrader.svg?branch=master
   :target: https://travis-ci.org/thomasjahoda/cookiecutter_project_upgrader
   :CI Status
 
