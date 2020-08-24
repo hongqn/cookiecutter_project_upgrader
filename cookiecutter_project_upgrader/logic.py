@@ -89,7 +89,8 @@ def update_project_template_branch(context: MutableMapping[str, str], project_di
         has_changes = _git_repository_has_local_changes(Path(tmp_git_worktree_directory))
         if has_changes:
             click.echo("Committing changes...")
-            subprocess.run(["git", "commit", "-m", "Update template"],
+            # Use here --no-verify to skip pre-commit hooks, since they may cause commit failure.
+            subprocess.run(["git", "commit", "-m", "Update template", "--no-verify"],
                            cwd=tmp_git_worktree_directory, check=True)
             push_template_branch_changes = _determine_option(push_template_branch_changes,
                                                              "Push changes to remote branch?")
